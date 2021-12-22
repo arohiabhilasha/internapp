@@ -2,7 +2,7 @@
 
 Basic login authentication is implemented in this project with register feature. More CSS will be added gradually.
 
-P.S. (There's still a bug in rendering the register page. Work in progress)
+
 
 In the project directory, you can run:
 
