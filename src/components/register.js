@@ -1,31 +1,42 @@
-import React from 'react';
-import UserManager from './functions';
-import reactDom from "react-dom";
-import RegisterElement from "./register";
+import React from "react";
+import LoginComponent from "./login";
+import UserManager from "./functions";
 
 const user = new UserManager();
-function rerender(obj) {
-  user.login(document.getElementById("email").value, document.getElementById("pwd1").value);
-  //reactDom.render(elemx, document.getElementById('root'));
-}
-export default function LoginComponent(){
-    return (
+function registerAccept() {
+  user.register(document.getElementById("email1").value, document.getElementById("pwd2").value);
+
+};
+
+function RegisterElement() {
+  return (
+    <div>
       <div className="App">
         <h1>Welcome to Schooglink!</h1>
         <div id="main">
           <div className="h-tag">
-            <h2>Welcome To My Account Login</h2>
+            <h2>Register yourself</h2>
           </div>
-          <form >
           <div className="login">
             <table cellSpacing="2" align="center" cellPadding="8" border="0">
               <tr>
-                <td>Enter User Name :</td>
+                <td>Enter your Name :</td>
                 <td>
                   <input
                     type="text"
                     placeholder="Enter user name here"
-                    id="email"
+                    id="name"
+                    className="tb"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Enter email :</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter user name here"
+                    id="email1"
                     className="tb"
                   />
                 </td>
@@ -36,7 +47,7 @@ export default function LoginComponent(){
                   <input
                     type="password"
                     placeholder="Enter Password here"
-                    id="pwd1"
+                    id="pwd2"
                     className="tb"
                   />
                 </td>
@@ -49,26 +60,28 @@ export default function LoginComponent(){
                     value="Clear"
                     onClick="clearFunc()"
                     className="btn"
-                    onClick={() => {document.getElementById("email").value = ""; document.getElementById("pwd1").value = "";}}
+                    onClick={() => {
+                      document.getElementById("email1").value = "";
+                      document.getElementById("pwd2").value = "";
+                    }}
                   />
                   <input
                     type="submit"
-                    value="Login"
+                    value="Register"
                     className="btn"
-                    onClick={(e) => {e.preventDefault();rerender();}}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        registerAccept();
+                    }}
                   />
                 </td>
               </tr>
-              <button onClick={(e) => {
-                  e.preventDefault();
-                  reactDom.render(<RegisterElement/>, document.getElementById('root'));
-                  console.log("here");
-                }}>Register</button>
             </table>
-            
           </div>
-          </form>
         </div>
+      </div>
     </div>
-    )
+  );
 }
+
+export default RegisterElement;

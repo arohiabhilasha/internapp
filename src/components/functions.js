@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import reactDom from "react-dom";
+// import LoginComponent from './login';
 
 class UserManager{
     constructor(){
@@ -42,13 +43,13 @@ class UserManager{
             }
         })
     }
-    register = () => {
+    register = (email, password) => {
         /**
          * Login the user using username and password
          */
         axios.post('https://identity-qa.schooglink.com/version1.0/auth/registeruser/', {
-            EmailId: this.state.username,
-            Password: this.state.password,
+            EmailId: email,
+            Password: password,
             IpAddress: "127.0.0.1", //TODO: Get the IP address of the user
         },{headers: {
             "Content-Type": "application/json"
@@ -58,8 +59,9 @@ class UserManager{
                 this.state.token = res.data.Token;
                 this.state.isAuthenticated = true;
                 this.state.codename = res.data.CodeName;
-                this.getProfile(this.state.token,this.state.codename);
-                return {token: res.data.Token, codename: res.data.CodeName};
+                // this.getProfile(this.state.token,this.state.codename);
+                // reactDom.render(<LoginComponent/>, document.getElementById('root'));
+                return {token: res.data[0]['Token'], codename: res.data[0]['CodeName']};
             }
             else{
                 alert(res);
