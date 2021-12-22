@@ -10,3 +10,19 @@
   height: 100vh;
   background-color: antiquewhite;
 }
+
+.profile{
+  align-items: center;
+  color:blueviolet;
+  text-align: center;
+  background-color: rgb(233, 213, 232);
+  padding-bottom: 20%;
+}
+
+.profile h2{
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
