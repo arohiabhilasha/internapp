@@ -1,4 +1,4 @@
-# Login Page
+# Student Dashboard
 
 Basic login authentication is implemented in this project with register feature. More CSS will be added gradually.
 
