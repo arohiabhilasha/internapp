@@ -24,9 +24,10 @@ function RegisterElement() {
                 <td>
                   <input
                     type="text"
-                    placeholder="Enter user name here"
+                    placeholder="Enter your name here"
                     id="name"
                     className="tb"
+                    required
                   />
                 </td>
               </tr>
@@ -37,6 +38,59 @@ function RegisterElement() {
                     type="text"
                     placeholder="Enter user name here"
                     id="email1"
+                    className="tb"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Date of Birth :</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder=""
+                    id="dob"
+                    className="tb"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Gender :</td>
+                <td>
+                  <select
+                    placeholder=""
+                    id="gender"
+                    className="tb"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>State :</td>
+                <td>
+                  <input
+                    type="text"
+                    id="state"
+                    className="tb"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Country :</td>
+                <td>
+                  <input
+                    type="text"
+                    id="country"
+                    className="tb"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Address :</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter user name here"
+                    id="address"
                     className="tb"
                   />
                 </td>
@@ -49,6 +103,7 @@ function RegisterElement() {
                     placeholder="Enter Password here"
                     id="pwd2"
                     className="tb"
+                    required
                   />
                 </td>
               </tr>
@@ -72,6 +127,7 @@ function RegisterElement() {
                     onClick={(e) => {
                         e.preventDefault();
                         registerAccept();
+                        <LoginComponent/>
                     }}
                   />
                 </td>

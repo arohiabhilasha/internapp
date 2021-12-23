@@ -1,7 +1,66 @@
 import axios from 'axios';
 import React from 'react';
 import reactDom from "react-dom";
-// import LoginComponent from './login';
+import constants from '../constants';
+import {Nav} from 'react-bootstrap';
+import renderProfile from './profile';
+import Subjects from './subjects';
+
+class Curriculum{
+    constructor(){
+        this.state = {
+            subjects: null,
+
+        }
+    }
+    
+    getSubjects = (token, codename, classId) => {
+        /**
+         * Get subjects with the details 
+         */
+
+        axios.post('https://curriculum-django-staging.schooglink.com/version1.0/curriculum/listsubjects/', {
+            token: token,
+            codeName: codename,
+            ipAddress: "127.0.0.1", //change ip later
+            classId: classId,
+        }, {headers:{
+            "Content-Type": "application/json"
+        }})
+        .then( res => {
+            if(res.status === 202){
+                this.state.subjects = res.data.RV;
+                Subjects(this.state);
+                return res.data.RV;
+                
+            }
+        }
+        )
+    }
+
+    // getClasses = (token, codename, boardId) => {
+    //     /**
+    //      * Get classes with the user profile details 
+    //      */
+
+    //     axios.post('https://curriculum-django-staging.schooglink.com/version1.0/curriculum/listclasses/', {
+    //         token: token,
+    //         codeName: codename,
+    //         ipAddress: "127.0.0.1", //change ip later
+    //         boardId: boardId,
+    //         /// '1' //change language later
+    //     }, {headers:{
+    //         "Content-Type": "application/json"
+    //     }})
+    //     .then( res => {
+    //         if(res.status === 202){
+    //             //this.state.boards = res.data.RV;
+    //             return res.data.RV;
+    //         }
+    //     }
+    //     )
+    // }
+}
 
 class UserManager{
     constructor(){
@@ -14,6 +73,10 @@ class UserManager{
             password: '',
             codename: null,
             profile: null,
+            boards:null,
+            subjects:null,
+            cid: null,
+            ///curriculum: curriculum,
         }
 
         this.config = {
@@ -34,9 +97,9 @@ class UserManager{
         }, {headers: {
             "Content-Type": "application/json"
         }}).then(res => {
-            if(res.status === 200){
+            if(res.status === 202){
                 if (token === this.state.token){
-                    this.profile = res.data[0];
+                    this.state.profile = res.data[0];
                 }
                 console.log(res.data);
                 //else {return res.data[0];}
@@ -59,8 +122,7 @@ class UserManager{
                 this.state.token = res.data.Token;
                 this.state.isAuthenticated = true;
                 this.state.codename = res.data.CodeName;
-                // this.getProfile(this.state.token,this.state.codename);
-                // reactDom.render(<LoginComponent/>, document.getElementById('root'));
+                this.getProfile(this.state.token,this.state.codename);
                 return {token: res.data[0]['Token'], codename: res.data[0]['CodeName']};
             }
             else{
@@ -68,6 +130,7 @@ class UserManager{
                 return(false)}
             }
         )
+        .catch(err => {if (!constants.DEBUG){alert("Registration failed!")}})
     }
     login = (email,password)=>{
         /**
@@ -86,26 +149,44 @@ class UserManager{
                 this.state.token = res.data[0]['Token'];
                 this.state.isAuthenticated = true;
                 this.state.codename = res.data[0]['CodeName'];
-                //this.getProfile(res.data[0].Token,res.data[0].CodeName);
+                this.getProfile(res.data[0].Token,res.data[0].CodeName);
                 console.log('success');
                 let obj = {token: res.data[0]['Token'], codename: res.data[0]['CodeName']};
-                const elemx = (
-                    <div className='profile'>
-                      <h1>Welcome!</h1>
-                      <div className='body1'>
-                      <br></br>
-                      <h2>Your email: {email}</h2>
-                      <br></br>
-                      <h2>Your username: {obj.codename}</h2>
-                      </div>
-                    </div>
-                  );
-                  reactDom.render(elemx, document.getElementById('root'));
+                this.getBoards(this.state.token,this.state.codename);
+                
+                console.log(this.state);
+                document.cookie = "auth="+JSON.stringify({token: res.data[0]['Token'], codename: res.data[0]['CodeName']});
+                renderProfile(email,this.state);
                 return {token: res.data[0]['Token'], codename: res.data[0]['CodeName']};
             
             }
-        ).catch(err => {console.log(err);return(false);})})
+        ).catch(err => {console.log(err);if (!constants.DEBUG){alert('Login failed! Contact us with a screenshot of JS Console (Ctrl+shift+I)');}})})
     }
+    getBoards = (token, codename) => {
+        /**
+         * Get board with the user profile details 
+         */
+
+        axios.post('https://curriculum-django-staging.schooglink.com/version1.0/curriculum/listboards/', {
+            token: token,
+            codeName: codename,
+            ipAddress: "127.0.0.1", //change ip later
+            /// '1' //change language later
+        }, {headers:{
+            "Content-Type": "application/json"
+        }})
+        .then( res => {
+            if(res.status === 202){
+                this.state.boards = res.data.RV;
+                return res.data.RV;
+            }
+        }
+        )
+    }
+    
+
+   
+    
 }
 
 export default UserManager;
