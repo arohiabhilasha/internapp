@@ -6,7 +6,7 @@ import reactDom from "react-dom";
 
 function NavBar(state){
     return(
-        <Nav justify variant="tabs" defaultActiveKey="/home" style={{backgroundColor: "#86af49", color:"white", linkStyle: "none"}}>
+        <Nav justify variant="tabs" defaultActiveKey="/home" style={{ color:"white", linkStyle: "none"}}>
             <Nav.Item>
                 <Nav.Link href="" onClick={(e) => e.preventDefault()}>Profile</Nav.Link>
             </Nav.Item>

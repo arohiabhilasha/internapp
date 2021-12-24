@@ -47,4 +47,3 @@ function Subjects(state,cid) {
   return <div>{value}</div>;
 }
 export default Subjects;
-

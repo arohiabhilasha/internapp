@@ -1,10 +1,13 @@
 .App {
   text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .dash-de{
   text-align: center;
   align-items: center;
+  display: "grid";
+  grid-template-columns: "1fr 1fr 1fr"
 }
 
 #main{
@@ -13,6 +16,10 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: antiquewhite;
+}
+.main{
+
   background-color: antiquewhite;
 }
 

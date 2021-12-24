@@ -10,7 +10,7 @@ function rerender(obj) {
 }
 export default function LoginComponent(element){
     return (
-      <div className="App">
+      <div className="App" >
         <h1>Welcome to Schooglink!</h1>
         <div id="main">
           <div className="h-tag">
